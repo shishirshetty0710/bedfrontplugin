@@ -1,0 +1,16 @@
+{
+  "name": "bedfrontplugin",
+  "version": "1.0.0",
+  "description": "",
+  "cordova": {
+    "id": "com.msk.bedfrontplugin",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.msk.bedfrontplugin" version="1.0.0"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>msk-bedfront-plugin</name>
+    <js-module name="msk-bedfront-plugin" src="www/msk-bedfront-plugin.js">
+        <clobbers target="cordova.plugins.bedfront" />
+    </js-module>
+
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="MSKBedfrontPlugin">
+                <param name="android-package" value="com.msk.bedfrontplugin.MSKBedfrontPlugin" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <source-file src="src/android/MSKBedfrontPlugin.java" target-dir="src/com/msk/bedfrontplugin/MSKBedfrontPlugin" />
+
+         <config-file target="../../config.xml" parent="/widget">
+            <custom-preference name="android-manifest/@xmlns:tools" value="http://schemas.android.com/tools" />
+            <custom-preference name="android-manifest/application/@android:theme" value="@style/Theme.AppCompat.Light" />
+        </config-file>
+
+        <!-- SDK files -->
+        <resource-file src="src/android/libs/iCOBluetoothsdk-2.0.0.15-release.aar" target="libs/iCOBluetoothsdk-2.0.0.15-release.aar" />
+        <!-- END SDK files -->
+
+        <!-- AndroidManifiest.xml Permissions -->
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> 
+            <uses-permission android:name="android.permission.BLUETOOTH" /> 
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+        </config-file>
+        <!-- END AndroidManifiest.xml -->
+
+      
+        <!-- Gradle -->
+        <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+        <!-- END Gradle -->
+
+        <dependency id="cordova-custom-config" version="^5.1.1" />
+    </platform>
+    
+</plugin>
