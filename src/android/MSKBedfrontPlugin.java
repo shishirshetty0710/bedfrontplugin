@@ -18,8 +18,6 @@ import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.Objects;
 
-import io.reactivex.disposables.Disposable;
-
 
 public class MSKBedfrontPlugin extends CordovaPlugin {
 	
@@ -63,10 +61,6 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
         //Application currApp = this.cordova.getActivity().getApplication();
        
 	   smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(this.cordova.getContext());
-        scanningSubscription = smokerlyzerBluetoothLeManager
-                .getScanTracker()
-                .getSubscription()
-                .subscribe(this::scanStateChange);
 	   
     }
 	
