@@ -1,4 +1,4 @@
-package com.msk.connexientplugin;
+package com.msk.bedfrontplugin;
 
 import android.app.Application;
 import android.util.Log;
