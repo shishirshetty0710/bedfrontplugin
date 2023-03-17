@@ -74,7 +74,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		if(smokerlyzerBluetoothLeManager!=null)
 			smokerlyzerBluetoothLeManager.disconnect();
 		
-		PluginResult result = new PluginResult(PluginResult.Status.OK, , "Success");
+		PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
         callbackContext.sendPluginResult(result);
     }
 	
