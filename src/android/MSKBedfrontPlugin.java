@@ -62,6 +62,10 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
        
 	   smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(this.cordova.getContext());
 	   
+	   PluginResult result = new PluginResult(PluginResult.Status.OK);
+       result.setKeepCallback(true);
+       callbackContext.sendPluginResult(result);
+	   
     }
 	
 	
@@ -69,6 +73,10 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		// Cleanup subscriptions
 		if(smokerlyzerBluetoothLeManager!=null)
 			smokerlyzerBluetoothLeManager.disconnect();
+		
+		PluginResult result = new PluginResult(PluginResult.Status.OK);
+        result.setKeepCallback(true);
+        callbackContext.sendPluginResult(result);
     }
 	
 	private void connect(CallbackContext callbackContext) {
