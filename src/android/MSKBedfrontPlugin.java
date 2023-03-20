@@ -11,6 +11,8 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -166,8 +168,10 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	
 	private void sendPluginResult(CallbackContext callbackContext, String message){
 		
+				JSONObject status = new JSONObject();
 			try{
-				PluginResult result = new PluginResult(PluginResult.Status.OK, message);
+				status.put("status", message);
+				PluginResult result = new PluginResult(PluginResult.Status.OK, status);
 				result.setKeepCallback(true);
 				callbackContext.sendPluginResult(result);
 			} 
