@@ -32,6 +32,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
+		final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), "Reached execute", android.widget.Toast.LENGTH_LONG
+          );
+		  toast.show();
         switch (action){
            
 			 case "initAsync": {
@@ -54,9 +57,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
             
         }
 		
-		final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), "Reached execute", android.widget.Toast.LENGTH_LONG
-          );
-		  toast.show();
+		
 
         return false;
     }
