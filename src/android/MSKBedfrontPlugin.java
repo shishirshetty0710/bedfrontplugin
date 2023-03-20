@@ -74,7 +74,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		  toast.show();
 		  PluginResult result = new PluginResult(PluginResult.Status.OK, "This is a custom message");
       // result.setKeepCallback(true);
-       callbackContext.sendPluginResult(result);
+       callbackContext.sendPluginResult(result, "This is a custom message 2");
 	}
 
     private void initAsync(CallbackContext callbackContext) {
