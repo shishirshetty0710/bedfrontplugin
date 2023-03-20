@@ -34,6 +34,12 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 
         switch (action){
            
+		   
+			 case "showToast": {
+                this.showToast(callbackContext);
+                return true;
+            }
+		   
 			 case "initAsync": {
                 this.initAsync(callbackContext);
                 return true;
@@ -57,6 +63,12 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 
         return false;
     }
+	
+	private void showToast(CallbackContext callbackContext) {
+		final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), "Reached showToast", android.widget.Toast.LENGTH_LONG
+          );
+		  toast.show();
+	}
 
     private void initAsync(CallbackContext callbackContext) {
         //Application currApp = this.cordova.getActivity().getApplication();

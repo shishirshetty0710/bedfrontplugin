@@ -13,5 +13,9 @@ module.exports = {
     },
     getSerialNumber: function (success, error) {
         exec(success, error, 'MSKBedfrontPlugin', 'getSerialNumber');
+    },
+	showToast: function (success, error) {
+        exec(success, error, 'MSKBedfrontPlugin', 'showToast');
     }
+	
 }
