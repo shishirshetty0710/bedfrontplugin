@@ -88,6 +88,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	   
 	   smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(cordova.getActivity().getWindow().getContext());
 	   
+	   displayToast("smokerlyzerBluetoothLeManager"+">>"+smokerlyzerBluetoothLeManager);
 	   PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
        result.setKeepCallback(true);
        callbackContext.sendPluginResult(result);
@@ -174,8 +175,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	}
 	
 	private void displayToast(String message) {
-		final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), message, android.widget.Toast.LENGTH_LONG
-          );
+		final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), message, android.widget.Toast.LENGTH_SHORT);
 		  toast.show();
 	}
 	
