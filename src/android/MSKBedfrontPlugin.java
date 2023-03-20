@@ -54,7 +54,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
             
         }
 		
-		final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), message, android.widget.Toast.LENGTH_LONG
+		final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), "Reached execute", android.widget.Toast.LENGTH_LONG
           );
 		  toast.show();
 
