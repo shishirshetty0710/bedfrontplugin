@@ -76,9 +76,10 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), "Reached showToast", android.widget.Toast.LENGTH_LONG
           );
 		  toast.show();
-		  PluginResult result = new PluginResult(PluginResult.Status.OK, "This is a custom message");
-       result.setKeepCallback(true);
-       callbackContext.sendPluginResult(result);
+		  sendPluginResult(callbackContext, "This is a custom message");
+		 // PluginResult result = new PluginResult(PluginResult.Status.OK, "This is a custom message");
+       //result.setKeepCallback(true);
+       //callbackContext.sendPluginResult(result);
 	}
 
     private void initAsync(CallbackContext callbackContext) {
@@ -171,7 +172,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 				JSONObject status = new JSONObject();
 			try{
 				status.put("status", message);
-				PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT, status);
+				PluginResult result = new PluginResult(PluginResult.Status.OK, true);
 				result.setKeepCallback(true);
 				callbackContext.sendPluginResult(result);
 			} 
