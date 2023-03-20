@@ -26,6 +26,8 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
     private static final int REQUEST_PERMISSION_FINE_LOCATION = 9358;
     private static final int REQUEST_ENABLE_BT = 1;
 	
+	private static String CONNECT_STATUS = "EMPTY_STATUS";
+	
 	private SmokerlyzerBluetoothLeManager smokerlyzerBluetoothLeManager;
 
     static String TAG = "MSKBedfrontPlugin";
@@ -73,7 +75,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
           );
 		  toast.show();
 		  PluginResult result = new PluginResult(PluginResult.Status.OK, "This is a custom message");
-      // result.setKeepCallback(true);
+       result.setKeepCallback(true);
        callbackContext.sendPluginResult(result);
 	}
 
@@ -87,7 +89,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	   smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(cordova.getActivity().getWindow().getContext());
 	   
 	   PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
-       //result.setKeepCallback(true);
+       result.setKeepCallback(true);
        callbackContext.sendPluginResult(result);
 	   
 	  
@@ -109,25 +111,33 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		smokerlyzerBluetoothLeManager.scanAndConnect(new String[]{"iCOquit"}, connectResult -> {
             switch(connectResult) {
                 case SUCCESS:
+					CONNECT_STATUS = "Finalized connection. Device is READY";
                     sendPluginResult(callbackContext, "\n Finalized connection. Device is READY");
                     break;
                 case SUCCESS_NEEDS_RECOVERY:
+				CONNECT_STATUS = "Finalized connection. Recovery function needs to be run on the sensor";
                     sendPluginResult(callbackContext, "\n Finalized connection. Recovery function needs to be run on the sensor");
                     break;
                 case ZEROING:
+				CONNECT_STATUS = " Zeroing the sensor, please wait...";
                     sendPluginResult(callbackContext, "\n Zeroing the sensor, please wait...");
                     break;
                 case ERROR_FAILED_TO_FINALIZE:
+				CONNECT_STATUS = "Connection process failed to finalize.";
                     sendPluginResult(callbackContext, "\n Connection process failed to finalize.");
                     break;
                 case ERROR_FAILED_TO_CONNECT:
+				CONNECT_STATUS = "Failed to connect to device";
                     sendPluginResult(callbackContext, "\n Failed to connect to device");
                     break;
                 case ERROR_SCAN_FAILED:
+				CONNECT_STATUS = "Failed to find device";
                     sendPluginResult(callbackContext, "\n Failed to find device");
                     break;
             }
         });
+		
+		displayToast(CONNECT_STATUS);
 		
 	}
 	
@@ -146,13 +156,15 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	
 	
 	private void sendPluginResult(CallbackContext callbackContext, String message){
-		displayToast(message);
+		
 			try{
 				PluginResult result = new PluginResult(PluginResult.Status.OK, message);
+				result.setKeepCallback(true);
 				callbackContext.sendPluginResult(result);
 			} 
 			catch (Exception e){
 				PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
+				result.setKeepCallback(true);
 				callbackContext.sendPluginResult(result);
 			}
 		
