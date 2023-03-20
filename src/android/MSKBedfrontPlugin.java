@@ -170,9 +170,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 				JSONObject status = new JSONObject();
 			try{
 				status.put("status", message);
-				PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT, true);
-				result.setKeepCallback(true);
-				callbackContext.sendPluginResult(result);
+				//PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT, true);
+				//result.setKeepCallback(true);
+				callbackContext.success(status);
 			} 
 			catch (Exception e){
 				PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
