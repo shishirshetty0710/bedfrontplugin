@@ -53,6 +53,10 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 			}
             
         }
+		
+		final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), message, android.widget.Toast.LENGTH_LONG
+          );
+		  toast.show();
 
         return false;
     }
@@ -65,6 +69,8 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	   PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
        result.setKeepCallback(true);
        callbackContext.sendPluginResult(result);
+	   
+	   
 	   
     }
 	
@@ -132,6 +138,8 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		
 		
 	}
+	
+
 	
     
 }
