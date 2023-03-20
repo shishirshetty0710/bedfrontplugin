@@ -107,8 +107,10 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
     }
 	
 	private void connect(CallbackContext callbackContext) {
+		displayToast(CONNECT_STATUS);
 		
 		smokerlyzerBluetoothLeManager.scanAndConnect(new String[]{"iCOquit"}, connectResult -> {
+			displayToast(connectResult+"<<<connectResult");
             switch(connectResult) {
                 case SUCCESS:
 					CONNECT_STATUS = "Finalized connection. Device is READY";
@@ -137,7 +139,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
             }
         });
 		
-		displayToast(CONNECT_STATUS);
+		
 		
 	}
 	
