@@ -77,9 +77,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		  //sendPluginResult(callbackContext, "This is a custom message");
 		  JSONObject status = new JSONObject();
 		  try{
-			  
+			  status.put("status",  "This is a custom message");
 		  }catch(Exception e) {
-			status.put("status",  "This is a custom message");
+			
 		  }
 		  callbackContext.success(status);
 		  
