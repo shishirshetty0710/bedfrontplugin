@@ -32,6 +32,10 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
+		PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
+        result.setKeepCallback(true);
+       callbackContext.sendPluginResult(result);
+	   
         switch (action){
            
 		   
@@ -68,7 +72,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), "Reached showToast", android.widget.Toast.LENGTH_LONG
           );
 		  toast.show();
-		  PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
+		  PluginResult result = new PluginResult(PluginResult.Status.OK, "This is a custom message");
       // result.setKeepCallback(true);
        callbackContext.sendPluginResult(result);
 	}
