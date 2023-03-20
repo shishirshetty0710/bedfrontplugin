@@ -76,7 +76,11 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		  displayToast("Reached showToast");
 		  //sendPluginResult(callbackContext, "This is a custom message");
 		  JSONObject status = new JSONObject();
-		  status.put("status",  "This is a custom message");
+		  try{
+			  
+		  }catch(Exception e) {
+			status.put("status",  "This is a custom message");
+		  }
 		  callbackContext.success(status);
 		  
 		 // PluginResult result = new PluginResult(PluginResult.Status.OK, "This is a custom message");
