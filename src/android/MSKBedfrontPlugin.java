@@ -95,9 +95,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	  
 	   
 	   
-	   PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
-       result.setKeepCallback(true);
-       callbackContext.sendPluginResult(result);
+	  // PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
+       //result.setKeepCallback(true);
+       //callbackContext.sendPluginResult(result);
 	   
 	  
 	   
