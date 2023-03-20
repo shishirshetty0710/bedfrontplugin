@@ -85,10 +85,16 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	    final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), "Reached initAsync", android.widget.Toast.LENGTH_LONG
           );
 		  toast.show();
+	   try{
+		    smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(cordova.getActivity().getWindow().getContext());
+			displayToast("smokerlyzerBluetoothLeManager>>TRY"+">>"+smokerlyzerBluetoothLeManager);
+	   }catch(Exception e){
+		   displayToast("smokerlyzerBluetoothLeManager>>CATCH"+">>"+smokerlyzerBluetoothLeManager);
+		   displayToast(e.toString());
+	   }
+	  
 	   
-	   smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(cordova.getActivity().getWindow().getContext());
 	   
-	   displayToast("smokerlyzerBluetoothLeManager"+">>"+smokerlyzerBluetoothLeManager);
 	   PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
        result.setKeepCallback(true);
        callbackContext.sendPluginResult(result);
