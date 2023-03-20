@@ -74,7 +74,11 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	
 	private void showToast(CallbackContext callbackContext) {
 		  displayToast("Reached showToast");
-		  sendPluginResult(callbackContext, "This is a custom message");
+		  //sendPluginResult(callbackContext, "This is a custom message");
+		  JSONObject status = new JSONObject();
+		  status.put("status",  "This is a custom message");
+		  callbackContext.success(status);
+		  
 		 // PluginResult result = new PluginResult(PluginResult.Status.OK, "This is a custom message");
        //result.setKeepCallback(true);
        //callbackContext.sendPluginResult(result);
@@ -170,9 +174,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 				JSONObject status = new JSONObject();
 			try{
 				status.put("status", message);
-				//PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT, true);
-				//result.setKeepCallback(true);
-				callbackContext.success(status);
+				PluginResult result = new PluginResult(PluginResult.Status.OK, message);
+				result.setKeepCallback(true);
+				callbackContext.sendPluginResult(result);
 			} 
 			catch (Exception e){
 				PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
