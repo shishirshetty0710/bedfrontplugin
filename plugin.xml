@@ -3,6 +3,10 @@
     xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <name>msk-bedfront-plugin</name>
+	
+	<engines>
+		<engine name="cordova" version=">=3.2.0" />
+	</engines>
     <js-module name="msk-bedfront-plugin" src="www/msk-bedfront-plugin.js">
         <clobbers target="cordova.plugins.bedfront" />
     </js-module>
