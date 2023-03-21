@@ -123,6 +123,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	private void connect(CallbackContext callbackContext) {
 		//displayToast(CONNECT_STATUS+">>"+smokerlyzerBluetoothLeManager);
 		
+		if(smokerlyzerBluetoothLeManager !=null){
+			
+		
 		smokerlyzerBluetoothLeManager.scanAndConnect(new String[]{"iCOquit"}, connectResult -> {
 			displayToast(connectResult+"<<<connectResult");
             switch(connectResult) {
@@ -152,6 +155,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
                     break;
             }
         });
+		} else {
+			displayToast("smokerlyzerBluetoothLeManager is NULL");
+		}
 		
 		
 		
