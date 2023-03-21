@@ -86,6 +86,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		 // PluginResult result = new PluginResult(PluginResult.Status.OK, "This is a custom message");
        //result.setKeepCallback(true);
        //callbackContext.sendPluginResult(result);
+	   
+	   cordova.requestPermission(this, 100, "android.permission.BLUETOOTH_CONNECT");
+	   
 	}
 
     private void initAsync(CallbackContext callbackContext) {
