@@ -73,7 +73,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
     }
 	
 	private void showToast(CallbackContext callbackContext) {
-		  displayToast("Reached showToast v1");
+		  displayToast("Reached showToast v1 "+ callbackContext);
 		  //sendPluginResult(callbackContext, "This is a custom message");
 		  //JSONObject status = new JSONObject();
 		  //try{
@@ -91,9 +91,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
     private void initAsync(CallbackContext callbackContext) {
         //Application currApp = this.cordova.getActivity().getApplication();
        
-	    final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), "Reached initAsync", android.widget.Toast.LENGTH_LONG
-          );
-		  toast.show();
+	   displayToast("Reached initAsync v1");
 	   try{
 		    smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(cordova.getActivity().getWindow().getContext());
 			displayToast("smokerlyzerBluetoothLeManager>>TRY"+">>"+smokerlyzerBluetoothLeManager);
