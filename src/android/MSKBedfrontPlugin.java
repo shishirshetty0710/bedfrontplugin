@@ -162,6 +162,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 			
 		
 		smokerlyzerBluetoothLeManager.getIsConnected((r2) -> {
+			displayToast("Value of R2= " + r2);
                 if (r2) {
                     smokerlyzerBluetoothLeManager.getSerialNumber((r) -> {
 						//sendPluginResult(callbackContext, "\n serial number = " + r);
