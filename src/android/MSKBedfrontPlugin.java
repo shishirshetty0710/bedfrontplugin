@@ -87,13 +87,13 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
        //result.setKeepCallback(true);
        //callbackContext.sendPluginResult(result);
 	   
-	   cordova.requestPermission(this, 100, "android.permission.BLUETOOTH_CONNECT");
+	   
 	   
 	}
 
     private void initAsync(CallbackContext callbackContext) {
         //Application currApp = this.cordova.getActivity().getApplication();
-       
+       cordova.requestPermission(this, 100, "android.permission.BLUETOOTH_CONNECT");
 	   displayToast("Reached initAsync v2");
 	   try{
 		    smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(this.cordova.getContext());
