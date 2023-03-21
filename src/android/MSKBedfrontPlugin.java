@@ -93,7 +93,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
        
 	   displayToast("Reached initAsync v2");
 	   try{
-		   // smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(this.cordova.getContext());
+		    smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(this.cordova.getContext());
 			//displayToast("smokerlyzerBluetoothLeManager>>TRY"+">>"+smokerlyzerBluetoothLeManager);
 	   }catch(Exception e){
 		   displayToast("smokerlyzerBluetoothLeManager>>CATCH"+">>"+smokerlyzerBluetoothLeManager);
