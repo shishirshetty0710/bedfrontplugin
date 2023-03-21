@@ -73,7 +73,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
     }
 	
 	private void showToast(CallbackContext callbackContext) {
-		  displayToast("Reached showToast");
+		  displayToast("Reached showToast v1");
 		  //sendPluginResult(callbackContext, "This is a custom message");
 		  //JSONObject status = new JSONObject();
 		  //try{
