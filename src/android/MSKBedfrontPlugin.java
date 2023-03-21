@@ -97,7 +97,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 			displayToast("smokerlyzerBluetoothLeManager>>TRY"+">>"+smokerlyzerBluetoothLeManager);
 	   }catch(Exception e){
 		   displayToast("smokerlyzerBluetoothLeManager>>CATCH"+">>"+smokerlyzerBluetoothLeManager);
-		   displayToast(e.toString());
+		   //displayToast(e.toString());
 	   }
 	  
 	   
