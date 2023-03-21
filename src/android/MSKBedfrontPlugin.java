@@ -158,6 +158,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	}
 	
 	private void getSerialNumber(CallbackContext callbackContext) {
+		if(smokerlyzerBluetoothLeManager!=null) {
+			
+		
 		smokerlyzerBluetoothLeManager.getIsConnected((r2) -> {
                 if (r2) {
                     smokerlyzerBluetoothLeManager.getSerialNumber((r) -> {
@@ -172,6 +175,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
                 }
 
             });
+		} else {
+			displayToast("smokerlyzerBluetoothLeManager is null");
+		}
 	}
 	
 	
