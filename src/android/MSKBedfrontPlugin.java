@@ -100,7 +100,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		   //displayToast(e.toString());
 	   }
 	  
-	   displayToast("Ended initAsync v1");
+	   //displayToast("Ended initAsync v1");
 	   
 	  // PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
        //result.setKeepCallback(true);
@@ -121,7 +121,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
     }
 	
 	private void connect(CallbackContext callbackContext) {
-		displayToast(CONNECT_STATUS+">>"+smokerlyzerBluetoothLeManager);
+		//displayToast(CONNECT_STATUS+">>"+smokerlyzerBluetoothLeManager);
 		
 		smokerlyzerBluetoothLeManager.scanAndConnect(new String[]{"iCOquit"}, connectResult -> {
 			displayToast(connectResult+"<<<connectResult");
