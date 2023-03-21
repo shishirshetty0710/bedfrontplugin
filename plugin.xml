@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <name>msk-bedfront-plugin</name>
     <js-module name="msk-bedfront-plugin" src="www/msk-bedfront-plugin.js">
-        <clobbers target="cordova.plugins.bedfront" />
+        <clobbers target="bedfront" />
     </js-module>
 
     <platform name="android">
