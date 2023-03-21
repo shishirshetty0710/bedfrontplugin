@@ -91,7 +91,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
     private void initAsync(CallbackContext callbackContext) {
         //Application currApp = this.cordova.getActivity().getApplication();
        
-	   displayToast("Reached initAsync v1");
+	   displayToast("Reached initAsync v2");
 	   try{
 		   // smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(this.cordova.getContext());
 			//displayToast("smokerlyzerBluetoothLeManager>>TRY"+">>"+smokerlyzerBluetoothLeManager);
