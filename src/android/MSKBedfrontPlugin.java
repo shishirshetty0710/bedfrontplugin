@@ -81,7 +81,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		  //}catch(Exception e) {
 			
 		  //}
-		  callbackContext.success(true);
+		  callbackContext.success(99999);
 		  
 		 // PluginResult result = new PluginResult(PluginResult.Status.OK, "This is a custom message");
        //result.setKeepCallback(true);
