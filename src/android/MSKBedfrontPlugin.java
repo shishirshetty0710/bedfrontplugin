@@ -100,7 +100,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		   displayToast("smokerlyzerBluetoothLeManager>>CATCH"+">>"+smokerlyzerBluetoothLeManager);
 	   }
 	   
-	   callbackContext.success(smokerlyzerBluetoothLeManager!=null);
+	   callbackContext.success("Object is not null");
 	   
 	  // PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
        //result.setKeepCallback(true);
