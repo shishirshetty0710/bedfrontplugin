@@ -162,6 +162,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 					//} catch(Exception e) {
 						
 					//}
+					myAsyncCallbackContext = callbackContext;
 					sendEventMessage(CONNECT_STATUS);
 					
 					//respondWithEvent(SUCCESS, payload, null, callbackContext, true, true);
@@ -169,26 +170,31 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
                 case SUCCESS_NEEDS_RECOVERY:
 				CONNECT_STATUS = "Finalized connection. Recovery function needs to be run on the sensor";
                     //sendPluginResult(callbackContext, "\n Finalized connection. Recovery function needs to be run on the sensor");
+					myAsyncCallbackContext = callbackContext;
 					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ZEROING:
 				CONNECT_STATUS = " Zeroing the sensor, please wait...";
                     //sendPluginResult(callbackContext, "\n Zeroing the sensor, please wait...");
+					myAsyncCallbackContext = callbackContext;
 					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ERROR_FAILED_TO_FINALIZE:
 				CONNECT_STATUS = "Connection process failed to finalize.";
                     //sendPluginResult(callbackContext, "\n Connection process failed to finalize.");
+					myAsyncCallbackContext = callbackContext;
 					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ERROR_FAILED_TO_CONNECT:
 				CONNECT_STATUS = "Failed to connect to device";
                     //sendPluginResult(callbackContext, "\n Failed to connect to device");
+					myAsyncCallbackContext = callbackContext;
 					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ERROR_SCAN_FAILED:
 				CONNECT_STATUS = "Failed to find device";
                     //sendPluginResult(callbackContext, "\n Failed to find device");
+					myAsyncCallbackContext = callbackContext;
 					sendEventMessage(CONNECT_STATUS);
                     break;
             }
