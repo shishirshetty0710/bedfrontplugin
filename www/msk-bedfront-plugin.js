@@ -16,6 +16,9 @@ module.exports = {
     },
 	showToast: function (success, error) {
         exec(success, error, 'MSKBedfrontPlugin', 'showToast');
+    },
+	retry: function (success, error) {
+        exec(success, error, 'MSKBedfrontPlugin', 'retry');
     }
 	
 }
