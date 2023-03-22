@@ -260,6 +260,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
               myAsyncCallbackContext = null;
        
 		//respondWithEvent(eventName, payload, null, callbackContext, true, true);
-	}
+	   }
     
+	}
 }
