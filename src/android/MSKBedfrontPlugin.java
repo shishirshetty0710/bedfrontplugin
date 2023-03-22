@@ -36,9 +36,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
-		PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
-        result.setKeepCallback(true);
-       callbackContext.sendPluginResult(result);
+		//PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
+        //result.setKeepCallback(true);
+       //callbackContext.sendPluginResult(result);
 	   
         switch (action){
            
@@ -93,17 +93,14 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 
     private void initAsync(CallbackContext callbackContext) {
         //Application currApp = this.cordova.getActivity().getApplication();
-       cordova.requestPermission(this, 100, "android.permission.BLUETOOTH_CONNECT");
 	   displayToast("Reached initAsync v2");
 	   try{
 		    smokerlyzerBluetoothLeManager = SmokerlyzerBluetoothLeManager.build(this.cordova.getContext());
-			//displayToast("smokerlyzerBluetoothLeManager>>TRY"+">>"+smokerlyzerBluetoothLeManager);
 	   }catch(Exception e){
 		   displayToast("smokerlyzerBluetoothLeManager>>CATCH"+">>"+smokerlyzerBluetoothLeManager);
-		   //displayToast(e.toString());
 	   }
-	  
-	   //displayToast("Ended initAsync v1");
+	   
+	   callbackContext.success(smokerlyzerBluetoothLeManager!=null);
 	   
 	  // PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
        //result.setKeepCallback(true);
