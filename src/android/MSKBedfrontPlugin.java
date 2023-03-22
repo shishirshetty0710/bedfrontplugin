@@ -23,10 +23,19 @@ import java.util.Objects;
 
 public class MSKBedfrontPlugin extends CordovaPlugin {
 	
+	private static CallbackContext myAsyncCallbackContext = null;
+	
 	private static final int PERMISSION_REQUEST_LOCATION = 400;
     private static final int PERMISSION_REQUEST_BT = 401;
     private static final int REQUEST_PERMISSION_FINE_LOCATION = 9358;
     private static final int REQUEST_ENABLE_BT = 1;
+	
+	private static final String SUCCESS = "SUCCESS";
+	private static final String SUCCESS_NEEDS_RECOVERY = "SUCCESS_NEEDS_RECOVERY";
+	private static final String ZEROING = "ZEROING";
+	private static final String ERROR_FAILED_TO_FINALIZE = "ERROR_FAILED_TO_FINALIZE";
+	private static final String ERROR_FAILED_TO_CONNECT = "ERROR_FAILED_TO_CONNECT";
+	private static final String ERROR_SCAN_FAILED = "ERROR_SCAN_FAILED";
 	
 	private static String CONNECT_STATUS = "EMPTY_STATUS";
 	
@@ -39,6 +48,10 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		//PluginResult result = new PluginResult(PluginResult.Status.OK, "Success");
         //result.setKeepCallback(true);
        //callbackContext.sendPluginResult(result);
+	   
+	   PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
+	   result.setKeepCallback(true);
+       callbackContext.sendPluginResult(result);
 	   
         switch (action){
            
@@ -53,7 +66,14 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
                 return true;
             }
 			case "connect": {
+				myAsyncCallbackContext = callbackContext;
                 this.connect(callbackContext);
+                return true;
+            }
+			
+			case "retry": {
+				myAsyncCallbackContext = callbackContext;
+                this.retry(callbackContext);
                 return true;
             }
 			
@@ -110,6 +130,11 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	   
     }
 	
+	private void retry(CallbackContext callbackContext){
+		
+		connect(callbackContext);
+    }
+	
 	
 	private void disconnect(CallbackContext callbackContext){
 		// Cleanup subscriptions
@@ -125,33 +150,46 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		
 		if(smokerlyzerBluetoothLeManager !=null){
 			
-		
 		smokerlyzerBluetoothLeManager.scanAndConnect(new String[]{"iCOquit"}, connectResult -> {
-			displayToast(connectResult+"<<<connectResult");
+			//displayToast(connectResult+"<<<connectResult");
             switch(connectResult) {
                 case SUCCESS:
 					CONNECT_STATUS = "Finalized connection. Device is READY";
-                    sendPluginResult(callbackContext, "\n Finalized connection. Device is READY");
+                    //sendPluginResult(callbackContext, "\n Finalized connection. Device is READY");
+					//JSONObject payload = new JSONObject();
+					//try {
+						//payload.put("status",CONNECT_STATUS);
+					//} catch(Exception e) {
+						
+					//}
+					sendEventMessage(CONNECT_STATUS);
+					
+					//respondWithEvent(SUCCESS, payload, null, callbackContext, true, true);
                     break;
                 case SUCCESS_NEEDS_RECOVERY:
 				CONNECT_STATUS = "Finalized connection. Recovery function needs to be run on the sensor";
-                    sendPluginResult(callbackContext, "\n Finalized connection. Recovery function needs to be run on the sensor");
+                    //sendPluginResult(callbackContext, "\n Finalized connection. Recovery function needs to be run on the sensor");
+					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ZEROING:
 				CONNECT_STATUS = " Zeroing the sensor, please wait...";
-                    sendPluginResult(callbackContext, "\n Zeroing the sensor, please wait...");
+                    //sendPluginResult(callbackContext, "\n Zeroing the sensor, please wait...");
+					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ERROR_FAILED_TO_FINALIZE:
 				CONNECT_STATUS = "Connection process failed to finalize.";
-                    sendPluginResult(callbackContext, "\n Connection process failed to finalize.");
+                    //sendPluginResult(callbackContext, "\n Connection process failed to finalize.");
+					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ERROR_FAILED_TO_CONNECT:
 				CONNECT_STATUS = "Failed to connect to device";
-                    sendPluginResult(callbackContext, "\n Failed to connect to device");
+                    //sendPluginResult(callbackContext, "\n Failed to connect to device");
+					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ERROR_SCAN_FAILED:
 				CONNECT_STATUS = "Failed to find device";
-                    sendPluginResult(callbackContext, "\n Failed to find device");
+                    //sendPluginResult(callbackContext, "\n Failed to find device");
+					sendEventMessage(CONNECT_STATUS);
                     break;
             }
         });
@@ -211,5 +249,17 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		  toast.show();
 	}
 	
+	
+	private void sendEventMessage(String message) {
+		
+		PluginResult result = new PluginResult(PluginResult.Status.OK,
+                        message);
+		result.setKeepCallback(false);
+        if (myAsyncCallbackContext != null) {
+              myAsyncCallbackContext.sendPluginResult(result);
+              myAsyncCallbackContext = null;
+       
+		//respondWithEvent(eventName, payload, null, callbackContext, true, true);
+	}
     
 }
