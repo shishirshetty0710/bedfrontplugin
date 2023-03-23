@@ -25,7 +25,7 @@ import java.util.Objects;
 
 public class MSKBedfrontPlugin extends CordovaPlugin {
 	
-	private static CallbackContext myAsyncCallbackContext = null;
+	//private static CallbackContext myAsyncCallbackContext = null;
 	
 	private static final int PERMISSION_REQUEST_LOCATION = 400;
     private static final int PERMISSION_REQUEST_BT = 401;
@@ -45,13 +45,13 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 
     static String TAG = "MSKBedfrontPlugin";
 	
-	public static int LATEST_READING = -1;
+	public static String LATEST_READING = "-1";
 	
 	
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		super.initialize(cordova, webView);
 		
-		 myAsyncCallbackContext = null;
+		// myAsyncCallbackContext = null;
 		 
 		 
 	}
@@ -81,13 +81,13 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
                 return true;
             }
 			case "connect": {
-				myAsyncCallbackContext = callbackContext;
+				//myAsyncCallbackContext = callbackContext;
                 this.connect(callbackContext);
                 return true;
             }
 			
 			case "retry": {
-				myAsyncCallbackContext = callbackContext;
+				//myAsyncCallbackContext = callbackContext;
                 this.retry(callbackContext);
                 return true;
             }
@@ -102,7 +102,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 			}
 			
 			case "takeReading" : {
-				LATEST_READING = -1;
+				LATEST_READING = "-1";
 				this.takeReading(callbackContext);
                 return true;
 			}
@@ -115,6 +115,11 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 			case "enableSensor" : {
 				this.enableSensor(callbackContext);
                 return true;
+			}
+			
+			case "startRecovery" : {
+				this.startRecovery(callbackContext);
+				return true;
 			}
             
         }
@@ -194,34 +199,34 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 						
 					//}
 
-					sendEventMessage(CONNECT_STATUS);
+					sendEventMessage(callbackContext, CONNECT_STATUS);
 					
 					//respondWithEvent(SUCCESS, payload, null, callbackContext, true, true);
                     break;
                 case SUCCESS_NEEDS_RECOVERY:
 				CONNECT_STATUS = "Finalized connection. Recovery function needs to be run on the sensor";
                     //sendPluginResult(callbackContext, "\n Finalized connection. Recovery function needs to be run on the sensor");
-					sendEventMessage(CONNECT_STATUS);
+					sendEventMessage(callbackContext, CONNECT_STATUS);
                     break;
                 case ZEROING:
 				CONNECT_STATUS = " Zeroing the sensor, please wait...";
                     //sendPluginResult(callbackContext, "\n Zeroing the sensor, please wait...");
-					sendEventMessage(CONNECT_STATUS);
+					sendEventMessage(callbackContext, CONNECT_STATUS);
                     break;
                 case ERROR_FAILED_TO_FINALIZE:
 				CONNECT_STATUS = "Connection process failed to finalize.";
                     //sendPluginResult(callbackContext, "\n Connection process failed to finalize.");
-					sendEventMessage(CONNECT_STATUS);
+					sendEventMessage(callbackContext, CONNECT_STATUS);
                     break;
                 case ERROR_FAILED_TO_CONNECT:
 				CONNECT_STATUS = "Failed to connect to device";
                     //sendPluginResult(callbackContext, "\n Failed to connect to device");
-					sendEventMessage(CONNECT_STATUS);
+					sendEventMessage(callbackContext, CONNECT_STATUS);
                     break;
                 case ERROR_SCAN_FAILED:
 				CONNECT_STATUS = "Failed to find device";
                     //sendPluginResult(callbackContext, "\n Failed to find device");
-					sendEventMessage(CONNECT_STATUS);
+					sendEventMessage(callbackContext, CONNECT_STATUS);
                     break;
             }
         });
@@ -283,14 +288,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 			smokerlyzerBluetoothLeManager.startBreathTest(this::onBreathTestComplete);
 			
 			callbackContext.success();
-			/*smokerlyzerBluetoothLeManager.startBreathTest(new ReadingComplete(){
-				
-				@Override
-				public void OnComplete​(java.lang.Boolean success, int reading, SmokerlyzerBluetoothLeManager.StatusCodeConstants status) {
-					
-					LATEST_READING = reading;
-				}
-			});*/
+			
 		} else{
 			callbackContext.error("\n device not connected");
 		}
@@ -309,14 +307,17 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	
 	
 	
-	private void sendEventMessage(String message) {
+	private void sendEventMessage(CallbackContext callbackContext, String message) {
 		
-		PluginResult result = new PluginResult(PluginResult.Status.OK,
+		/*PluginResult result = new PluginResult(PluginResult.Status.OK,
                         message);
-		result.setKeepCallback(false);
+		result.setKeepCallback(true);
+		callbackContext.sendPluginResult(result);
         if (myAsyncCallbackContext != null) {
               myAsyncCallbackContext.sendPluginResult(result);
-              myAsyncCallbackContext = null;
+              myAsyncCallbackContext = null;*/
+			  
+			  callbackContext.success(message);
        
 		//respondWithEvent(eventName, payload, null, callbackContext, true, true);
 	   }
@@ -325,7 +326,9 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	
 	
 	public void onBreathTestComplete(boolean isSuccessful, int ppm, SmokerlyzerBluetoothLeManager.StatusCodeConstants status){
-		LATEST_READING = ppm;
+		LATEST_READING = isSuccessful+"\n"+ ppm+"\n" + status ;
+		
+		
 		
 	}
 	
@@ -348,6 +351,32 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
                 }
             });
 		} else{
+			callbackContext.error("\n device not connected");
+		}
+	}
+	
+	
+	public void startRecovery(CallbackContext callbackContext){
+		if(smokerlyzerBluetoothLeManager!=null)
+		smokerlyzerBluetoothLeManager.handleRecovery((isComplete, ppm, status) -> {
+                        if (isComplete) {
+                            callbackContext.success("\n Recovery complete");
+							
+                        }
+                        else if (status == SmokerlyzerBluetoothLeManager.StatusCodeConstants.ERROR_FAILED_TO_RECOVER_TO_LESS_THAN_5PPM) {
+                            callbackContext.success("\n Recovery failed with ppm = " + ppm);
+                        }
+                        else if (status == SmokerlyzerBluetoothLeManager.StatusCodeConstants.ERROR_ZEROING_REQUIRED) {
+                            callbackContext.success("\n Zeroing required. Device will be zeroed on next reconnect");
+                        }
+                        else if (status == SmokerlyzerBluetoothLeManager.StatusCodeConstants.ERROR_DEVICE_NOT_READY) {
+                           callbackContext.success("\n error: device is not ready yet, please wait");
+                        }
+                        else {
+                            callbackContext.success("\n Recovery failed with error = " + status.name());
+                        }
+                    });
+		else {
 			callbackContext.error("\n device not connected");
 		}
 	}

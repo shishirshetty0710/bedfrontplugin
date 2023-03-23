@@ -28,6 +28,9 @@ module.exports = {
     },
 	enableSensor: function (success, error) {
         exec(success, error, 'MSKBedfrontPlugin', 'enableSensor');
+    },
+	startRecovery: function (success, error) {
+        exec(success, error, 'MSKBedfrontPlugin', 'startRecovery');
     }
 	
 	
