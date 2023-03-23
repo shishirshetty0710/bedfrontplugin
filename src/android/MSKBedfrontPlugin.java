@@ -7,6 +7,8 @@ import com.bedfont.icosdk.ble.v2.*;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.CordovaInterface;
 
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
@@ -42,6 +44,19 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	private SmokerlyzerBluetoothLeManager smokerlyzerBluetoothLeManager;
 
     static String TAG = "MSKBedfrontPlugin";
+	
+	public static int LATEST_READING = -1;
+	
+	
+	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+		super.initialize(cordova, webView);
+		
+		 myAsyncCallbackContext = null;
+		 
+		 
+	}
+	
+	
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
@@ -83,6 +98,17 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
             }
 			case "getSerialNumber" : {
 				this.getSerialNumber(callbackContext);
+                return true;
+			}
+			
+			case "takeReading" : {
+				LATEST_READING = -1;
+				this.takeReading(callbackContext);
+                return true;
+			}
+			
+			case "getReading" : {
+				this.getReading(callbackContext);
                 return true;
 			}
             
@@ -162,7 +188,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 					//} catch(Exception e) {
 						
 					//}
-					myAsyncCallbackContext = callbackContext;
+
 					sendEventMessage(CONNECT_STATUS);
 					
 					//respondWithEvent(SUCCESS, payload, null, callbackContext, true, true);
@@ -170,31 +196,26 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
                 case SUCCESS_NEEDS_RECOVERY:
 				CONNECT_STATUS = "Finalized connection. Recovery function needs to be run on the sensor";
                     //sendPluginResult(callbackContext, "\n Finalized connection. Recovery function needs to be run on the sensor");
-					myAsyncCallbackContext = callbackContext;
 					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ZEROING:
 				CONNECT_STATUS = " Zeroing the sensor, please wait...";
                     //sendPluginResult(callbackContext, "\n Zeroing the sensor, please wait...");
-					myAsyncCallbackContext = callbackContext;
 					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ERROR_FAILED_TO_FINALIZE:
 				CONNECT_STATUS = "Connection process failed to finalize.";
                     //sendPluginResult(callbackContext, "\n Connection process failed to finalize.");
-					myAsyncCallbackContext = callbackContext;
 					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ERROR_FAILED_TO_CONNECT:
 				CONNECT_STATUS = "Failed to connect to device";
                     //sendPluginResult(callbackContext, "\n Failed to connect to device");
-					myAsyncCallbackContext = callbackContext;
 					sendEventMessage(CONNECT_STATUS);
                     break;
                 case ERROR_SCAN_FAILED:
 				CONNECT_STATUS = "Failed to find device";
                     //sendPluginResult(callbackContext, "\n Failed to find device");
-					myAsyncCallbackContext = callbackContext;
 					sendEventMessage(CONNECT_STATUS);
                     break;
             }
@@ -250,10 +271,33 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		
 	}
 	
+	
+	private void takeReading(CallbackContext callbackContext) {
+		if(smokerlyzerBluetoothLeManager!=null) {
+			smokerlyzerBluetoothLeManager.startBreathTest(new ReadingComplete(){
+				
+				@Override
+				public void OnComplete​(java.lang.Boolean success, int reading, SmokerlyzerBluetoothLeManager.StatusCodeConstants status) {
+					
+					LATEST_READING = reading;
+				}
+			});
+		} else{
+			callbackContext.error("\n device not connected");
+		}
+	}
+	
+	private void getReading(CallbackContext callbackContext) {
+		callbackContext.success("LATEST_READING: "+LATEST_READING);
+	}
+	
 	private void displayToast(String message) {
 		final android.widget.Toast toast = android.widget.Toast.makeText(cordova.getActivity().getWindow().getContext(), message, android.widget.Toast.LENGTH_SHORT);
 		  toast.show();
 	}
+	
+	
+	
 	
 	
 	private void sendEventMessage(String message) {

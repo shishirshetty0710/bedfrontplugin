@@ -19,6 +19,12 @@ module.exports = {
     },
 	retry: function (success, error) {
         exec(success, error, 'MSKBedfrontPlugin', 'retry');
+    },
+	takeReading: function (success, error) {
+        exec(success, error, 'MSKBedfrontPlugin', 'takeReading');
+    },
+	getReading: function (success, error) {
+        exec(success, error, 'MSKBedfrontPlugin', 'getReading');
     }
 	
 }
