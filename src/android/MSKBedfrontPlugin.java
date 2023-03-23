@@ -276,6 +276,8 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		if(smokerlyzerBluetoothLeManager!=null) {
 			
 			smokerlyzerBluetoothLeManager.startBreathTest(this::onBreathTestComplete);
+			
+			callbackContext.success();
 			/*smokerlyzerBluetoothLeManager.startBreathTest(new ReadingComplete(){
 				
 				@Override
