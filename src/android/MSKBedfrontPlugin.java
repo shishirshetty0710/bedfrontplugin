@@ -111,6 +111,11 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 				this.getReading(callbackContext);
                 return true;
 			}
+			
+			case "enableSensor" : {
+				this.enableSensor(callbackContext);
+                return true;
+			}
             
         }
 		
@@ -322,5 +327,28 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	public void onBreathTestComplete(boolean isSuccessful, int ppm, SmokerlyzerBluetoothLeManager.StatusCodeConstants status){
 		LATEST_READING = ppm;
 		
+	}
+	
+	public void enableSensor(CallbackContext callbackContext) {
+		if(smokerlyzerBluetoothLeManager!=null) {
+		 smokerlyzerBluetoothLeManager.enableSensor(cb -> {
+                switch (cb){
+                    case SUCCESS:
+					callbackContext.success("\n enabled sensor");
+                        break;
+                    case ERROR_FAILED_TO_ENABLE_SENSOR:
+                        callbackContext.success("\n error: failed to enable sensor");
+                        break;
+                    case ERROR_DEVICE_NOT_READY:
+                        callbackContext.success("\n error: device is not ready yet, please wait");
+                        break;
+                    case ERROR_ZEROING_REQUIRED:
+                        callbackContext.success("\n Zeroing required. Device will be zeroed on next reconnect");
+                        break;
+                }
+            });
+		} else{
+			callbackContext.error("\n device not connected");
+		}
 	}
 }

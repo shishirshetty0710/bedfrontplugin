@@ -25,6 +25,10 @@ module.exports = {
     },
 	getReading: function (success, error) {
         exec(success, error, 'MSKBedfrontPlugin', 'getReading');
+    },
+	enableSensor: function (success, error) {
+        exec(success, error, 'MSKBedfrontPlugin', 'enableSensor');
     }
+	
 	
 }
