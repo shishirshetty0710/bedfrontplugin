@@ -322,7 +322,7 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		//respondWithEvent(eventName, payload, null, callbackContext, true, true);
 	   }
     
-	}
+	
 	
 	
 	public void onBreathTestComplete(boolean isSuccessful, int ppm, SmokerlyzerBluetoothLeManager.StatusCodeConstants status){
