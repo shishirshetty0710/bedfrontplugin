@@ -274,14 +274,16 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 	
 	private void takeReading(CallbackContext callbackContext) {
 		if(smokerlyzerBluetoothLeManager!=null) {
-			smokerlyzerBluetoothLeManager.startBreathTest(new ReadingComplete(){
+			
+			smokerlyzerBluetoothLeManager.startBreathTest(this::onBreathTestComplete);
+			/*smokerlyzerBluetoothLeManager.startBreathTest(new ReadingComplete(){
 				
 				@Override
 				public void OnComplete​(java.lang.Boolean success, int reading, SmokerlyzerBluetoothLeManager.StatusCodeConstants status) {
 					
 					LATEST_READING = reading;
 				}
-			});
+			});*/
 		} else{
 			callbackContext.error("\n device not connected");
 		}
@@ -312,5 +314,11 @@ public class MSKBedfrontPlugin extends CordovaPlugin {
 		//respondWithEvent(eventName, payload, null, callbackContext, true, true);
 	   }
     
+	}
+	
+	
+	public void onBreathTestComplete(boolean isSuccessful, int ppm, SmokerlyzerBluetoothLeManager.StatusCodeConstants status){
+		LATEST_READING = reading;
+		
 	}
 }
